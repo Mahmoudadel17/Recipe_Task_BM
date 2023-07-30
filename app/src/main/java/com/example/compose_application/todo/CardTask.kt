@@ -1,5 +1,6 @@
 package com.example.compose_application.todo
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,18 +20,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import kotlinx.coroutines.delay
+
 @Composable
 fun TaskCard(task: Task,onCompleteClick:() -> Unit) {
-    var isStarClickedState by remember { mutableStateOf(task.isFavorite) }
-    var isCompleteClickedState by remember { mutableStateOf(task.isComplete) }
+    var onIconCompletedClick by remember { mutableStateOf(false) }
 
+    var isStarClickedState by remember { mutableStateOf(task.isFavorite) }
     val starColor = if (isStarClickedState) Color(0xFFDAA520) else Color.DarkGray
-    val completeColor = if (isCompleteClickedState) Color.Green else Color.DarkGray
+    val completeColor = if (task.isComplete) Color.Green else Color.DarkGray
+
 
     Card(
         modifier = Modifier
@@ -45,20 +50,17 @@ fun TaskCard(task: Task,onCompleteClick:() -> Unit) {
         ) {
             // Icon for complete with click listener
             Icon(
-                imageVector = if (task.isComplete) Icons.Default.CheckCircle else Icons.Default.CheckCircle,
+                imageVector = Icons.Default.CheckCircle,
                 contentDescription = "Task Status",
                 tint = completeColor,
                 modifier = Modifier.clickable {
-                    if (!task.isComplete){
-
-                    }
                     task.isComplete = !task.isComplete
-//                    isCompleteClickedState = !isCompleteClickedState
-                    onCompleteClick()
-
+                    onIconCompletedClick = true
+                    // Log.d("test","i am in onClick")
                 }
 
             )
+
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -71,17 +73,24 @@ fun TaskCard(task: Task,onCompleteClick:() -> Unit) {
 
             // Icon for favorite with click listener
             Icon(
-                imageVector = if (task.isFavorite) Icons.Default.Star else Icons.Default.Star,
+                imageVector =  Icons.Default.Star,
                 contentDescription = "Favorite Task",
                 tint = starColor,
                 modifier = Modifier.clickable {
                     task.isFavorite = !task.isFavorite
-                    isStarClickedState =  task.isFavorite
+                    isStarClickedState = !isStarClickedState
                 } // Add click listener
             )
         }
     }
-
+    LaunchedEffect(onIconCompletedClick) {
+        if (onIconCompletedClick) {
+            delay(500L)
+            // Log.d("test","i am in LaunchedEffect")
+            onIconCompletedClick = false
+            onCompleteClick()
+        }
+    }
 
 }
 
