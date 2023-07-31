@@ -1,4 +1,4 @@
-package com.example.compose_application.Login
+package com.example.compose_application.login
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
