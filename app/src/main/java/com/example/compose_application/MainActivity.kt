@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import com.example.compose_application.ui.theme.Compose_ApplicationTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.compose_application.Login.LoginScreen
 import com.example.compose_application.todo.TaskList
 
 
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TaskList()
+            LoginScreen()
 
         }
     }
