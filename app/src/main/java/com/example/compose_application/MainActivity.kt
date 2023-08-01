@@ -23,13 +23,17 @@ import com.example.compose_application.ui.theme.Compose_ApplicationTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.compose_application.login.LoginScreen
+import com.example.compose_application.sessionTask.CardPerson
+import com.example.compose_application.sessionTask.ListOfTasks
+import com.example.compose_application.sessionTask.TaskCard2
+import com.example.compose_application.todo.defaultTasks
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LoginScreen()
+            ListOfTasks()
 
         }
     }

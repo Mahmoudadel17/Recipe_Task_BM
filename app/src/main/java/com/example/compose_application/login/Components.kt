@@ -16,18 +16,29 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.compose_application.R
 import com.example.compose_application.ui.theme.PurpleGrey80
 
 
-fun validationLogin(email:String,password:String): Pair<Boolean, String>{
-    if (email.isEmpty() || password.isEmpty()){
-        return Pair(false,"Please enter both email and password fields*")
-    }else if(!isValidEmail(email)){
-        return Pair(false,"Please enter valid email*")
-    }else if (password.length<8){
-        return Pair(false,"Please enter valid password (>8 char)*")
+fun validationLogin(email:String,password:String): Triple<Boolean, String , String>{
+
+    if (email.isEmpty() && password.isEmpty()){
+        return Triple(false,"Please enter your email*","Please enter your password*")
+    }else if(email.isEmpty()){
+        return Triple(false,"Please enter your email*","")
+    } else if(password.isEmpty()){
+        return Triple(false,"","Please enter your password*")
+    }else if(!isValidEmail(email) &&  password.length<8){
+        return Triple(false,"Please enter valid email*","Please enter valid password (>8 char)*")
+    }else if(!isValidEmail(email) ){
+        return Triple(false,"Please enter valid email*","")
+    } else if (password.length<8){
+        return Triple(false,"","Please enter valid password (>8 char)*")
     }
-    return Pair(true,"")
+    return Triple(true,"","")
 
 }
 
@@ -57,14 +68,18 @@ fun EditTextInput(textLabel:String ) {
 
 }
 
-
+@Composable
+fun LoaderAnimation() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.login))
+    LottieAnimation(composition)
+}
 @Composable
 fun ButtonClickOn(buttonText:String ,onButtonClick:() -> Unit ) {
     Button (colors = ButtonDefaults.buttonColors(containerColor =PurpleGrey80),
         enabled = true,
         onClick = {onButtonClick()},
         modifier = Modifier
-            .padding(8.dp, top = 150.dp)
+            .padding(8.dp, top = 140.dp)
             .fillMaxWidth(1f)
 
 

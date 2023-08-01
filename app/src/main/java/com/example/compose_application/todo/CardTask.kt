@@ -26,10 +26,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.delay
 
+
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun TaskCard(task: Task,onCompleteClick:() -> Unit) {
+fun TaskCard(task: Task = defaultTasks[0],onCompleteClick:() -> Unit = {}) {
     var onIconCompletedClick by remember { mutableStateOf(false) }
 
     var isStarClickedState by remember { mutableStateOf(task.isFavorite) }

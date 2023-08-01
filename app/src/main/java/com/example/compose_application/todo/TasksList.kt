@@ -1,6 +1,6 @@
 package com.example.compose_application.todo
 
-val defaultTasks = listOf(
+var defaultTasks = listOf(
     Task(id = 1,title = "Task Title", description = "this is description of task..."),
     Task(id = 2,title = "Task Title", description = "this is description of task..."),
     Task(id = 3,title = "Task Title", description = "this is description of task..."),
